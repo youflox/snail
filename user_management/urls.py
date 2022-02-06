@@ -1,8 +1,5 @@
-from django.urls import path, include
+from django.urls import path
 
-from rest_framework.routers import DefaultRouter
-
-from .views import home, login, signup, logout
 from .viewset import UserLoginView, UserSignupView, UserLogoutView
 
 
