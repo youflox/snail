@@ -34,9 +34,6 @@ class DataUploadViewset(APIView):
 
                 serializer = DataSerializer(queryset, many=True)
 
-                # print(serializer.is_valid(raise_exception=True))
-                # print(serializer.data)
-
                 return Response(serializer.data,status=status.HTTP_200_OK)
                 
             return Response(status=status.HTTP_200_OK)
@@ -53,30 +50,26 @@ class DataUploadViewset(APIView):
 
             queryset = File.objects.filter(id=file_id).filter(user=user_id).get()
             json_data = json.load(queryset.file)
-
+            print("HERE")
             try:
-                    for data in json_data:
-                        print(data)
+                for data in json_data:
+                    data['file'] = file_id
+                    data['user'] = request.user.id
+                    serializer = DataSerializer(data = data)
+                    if serializer.is_valid():
+                        obj = Data.objects.create(
+                            file_id = data['file'],
+                            user_id = data['user'],
+                            userId = data['userId'],
+                            title = data["title"],
+                            body = data["body"]
+                        )
+                        obj.save()
 
-                        data['file'] = file_id
-                        data['user'] = request.user.id
+                queryset.data_uploaded = True
+                queryset.save()
 
-                        serializer = DataSerializer(data = data)
-
-                        if serializer.is_valid():
-
-                            obj = Data.objects.create(
-                                file_id = data['file'],
-                                user_id = data['user'],
-                                userId = data['userId'],
-                                title = data["title"],
-                                body = data["body"]
-                            )
-                            
-
-                            obj.save()
-
-                    return Response(status=status.HTTP_200_OK)
+                return Response(status=status.HTTP_201_CREATED)
             except:
                 return Response("File is not supported.", status=status.HTTP_406_NOT_ACCEPTABLE)
                     

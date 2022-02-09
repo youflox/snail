@@ -22,11 +22,16 @@ class UserLoginView(APIView):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                print(login(request, user))
                 return Response(status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
+
 
 
 class UserSignupView(APIView):
@@ -35,7 +40,7 @@ class UserSignupView(APIView):
 
         if serializer.is_valid(serializer):
             serializer.create(validated_data= serializer.data)
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

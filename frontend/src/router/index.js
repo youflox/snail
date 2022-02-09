@@ -1,12 +1,25 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
+import Logout from "../views/Logout.vue";
+
 
 const routes = [
   {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+  },
+  {
     path: "/login",
     name: "Login",
-    component: Login.vue,
+    component: Login,
   },
   {
     path: "/",
@@ -26,8 +39,22 @@ const routes = [
 ];
 
 const router = createRouter({
+  // hashbang: false,
+  base: "/",
   history: createWebHashHistory(),
   routes,
 });
+
+import store from '../store/index'
+  router.beforeEach(to =>{
+    if (to.path !== '/login'){
+      if(sessionStorage.getItem('username') !== null && sessionStorage.getItem('password') !== null  ){
+        store.state.authenticated = true;
+      } else {
+        store.state.authenticated = false; 
+      }
+    }
+  })
+
 
 export default router;

@@ -23,8 +23,6 @@ class UserSignupSerializer(ModelSerializer):
             is_superuser=False,
 
         )
-        print(validated_data)
-        print(validated_data['password'])
         user.set_password(validated_data['password'])
         user.save()
         return user

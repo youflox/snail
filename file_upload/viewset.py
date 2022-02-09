@@ -21,13 +21,13 @@ class UploadViewSet(ViewSet):
 
     def create(self, request):
         file_uploaded = request.data['file']
-
-        serializer_class = UploadSerializer(data = {"file":file_uploaded, "user_id": request.user.id})
+       
+        serializer_class = UploadSerializer(data = {"file":file_uploaded, 'data_uploaded': False, "user": request.user.id})
 
         if serializer_class.is_valid(raise_exception=True):
             try:
                 if json.load(file_uploaded):
-                    upload = File(file=file_uploaded, user_id=request.user)
+                    upload = File(file=file_uploaded, data_uploaded= False, user=request.user)
                     upload.save()
                     return Response(serializer_class.data, status=status.HTTP_200_OK)
             except:
@@ -35,5 +35,6 @@ class UploadViewSet(ViewSet):
 
         else:
             message = "Something went wrong"
+
             
         return Response(message, status=status.HTTP_406_NOT_ACCEPTABLE)

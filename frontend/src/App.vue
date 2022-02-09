@@ -1,10 +1,36 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Home</router-link> 
+    <router-link to="/about">About</router-link> 
+    <router-link v-if="!this.$store.state.authenticated" to="/Login">Login</router-link> 
+    <router-link v-if="!this.$store.state.authenticated" to="/signup">Signup</router-link>
+    <router-link v-if="this.$store.state.authenticated" to="/Logout">Logout</router-link>
+    {{authenticated}}
+    {{this.$store.state.authenticated}}
   </div>
-  <router-view />
+  <router-view class="w-75 p-3"/>
 </template>
+
+
+<script>
+export default {
+  data(){
+    return {
+      name: false,    
+    }
+  },
+  methods: {
+    checkAuthenticated(){
+      if (sessionStorage.getItem('username') == null  && sessionStorage.getItem('password') == null){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+  },
+}
+</script>
 
 <style>
 #app {
@@ -17,14 +43,18 @@
 
 #nav {
   padding: 30px;
+  background-color: rgb(224,189,115);
+
 }
 
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  padding: 20px;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>
