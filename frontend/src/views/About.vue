@@ -12,6 +12,10 @@
     <p>to update the file data to the databse click on <a class="text-danger">upload</a>, the data will be saved to the databse.</p>
     <br>
     <p>To view the data of the file, click on the <a class="text-success">view</a> button.</p>
+    <br>
+    <p> username : admin</p>
+    <p> password : admin</p>
+  
   </div>
 </template>
 <script>
