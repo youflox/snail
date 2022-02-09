@@ -3,7 +3,8 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Logout from "../views/Logout.vue";
-
+import DataView from "../views/DataView.vue";
+import store from '../store/index'
 
 const routes = [
   {
@@ -27,6 +28,12 @@ const routes = [
     component: Home,
   },
   {
+    path: "/data/:id",
+    name: "DataView",
+    component: DataView,
+    props: true
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
@@ -45,16 +52,15 @@ const router = createRouter({
   routes,
 });
 
-import store from '../store/index'
-  router.beforeEach(to =>{
-    if (to.path !== '/login'){
-      if(sessionStorage.getItem('username') !== null && sessionStorage.getItem('password') !== null  ){
-        store.state.authenticated = true;
-      } else {
-        store.state.authenticated = false; 
-      }
+router.beforeEach(to =>{
+  if (to.path !== '/login'){
+    if(sessionStorage.getItem('username') !== null && sessionStorage.getItem('password') !== null  ){
+      store.state.authenticated = true;
+    } else {
+      store.state.authenticated = false;
     }
-  })
+  }
+})
 
 
 export default router;

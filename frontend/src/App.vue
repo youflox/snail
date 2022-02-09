@@ -1,14 +1,12 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> 
+    <router-link v-if="this.$store.state.authenticated" to="/">Home</router-link> 
     <router-link to="/about">About</router-link> 
     <router-link v-if="!this.$store.state.authenticated" to="/Login">Login</router-link> 
     <router-link v-if="!this.$store.state.authenticated" to="/signup">Signup</router-link>
     <router-link v-if="this.$store.state.authenticated" to="/Logout">Logout</router-link>
-    {{authenticated}}
-    {{this.$store.state.authenticated}}
   </div>
-  <router-view class="w-75 p-3"/>
+  <router-view />
 </template>
 
 
