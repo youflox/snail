@@ -1,8 +1,8 @@
 # snail
 User can upload a JSON file and can save the data in a database.
 
-username: admin
-password: admin
+##username: admin
+##password: admin
 
 #Technologies used
 - Python
@@ -96,27 +96,4 @@ once Required versions of Python, node and vue are installed.
 - Once the file is uploaded then it will be added to the server.
 
 - User can click on "upload" to upload the data to the database.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
