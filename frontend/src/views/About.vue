@@ -13,8 +13,8 @@
     <br>
     <p>To view the data of the file, click on the <a class="text-success">view</a> button.</p>
     <br>
-    <p> username : admin</p>
-    <p> password : admin</p>
+
+    <p>Contact me : 7888607208 (Nanda)</p>
   
   </div>
 </template>
