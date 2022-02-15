@@ -34,7 +34,7 @@
             <input type="password" id="form1Example23" class="form-control form-control-lg" placeholder="Password" v-model="this.password"/>
           </div>
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-lg btn-block" @click="signUp">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" @click="signUp">Sign up</button>
         </form>
       </div>
     </div>

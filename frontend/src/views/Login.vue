@@ -76,7 +76,7 @@ export default {
                             this.$router.push({ name: "Home" })
                             this.$store.state.authenticated = true
                             sessionStorage.setItem("username", this.username)
-                            sessionStorage.setItem("password", this.username)
+                            sessionStorage.setItem("password", this.password)
                     }
                     })
                 }    

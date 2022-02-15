@@ -15,6 +15,7 @@ class UploadViewSet(ViewSet):
     serializer_class = UploadSerializer
 
     def list(self, request):
+        print("KASDFLSAFDL")
         data = File.objects.filter(user_id = request.user)
         serializer_data = UploadSerializer(data, many=True)
         return Response(serializer_data.data)

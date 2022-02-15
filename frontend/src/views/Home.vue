@@ -15,7 +15,11 @@
             name="filename"
             accept = ".json"
           >
-          <button class="btn btn-secondary" @click="fileUpload()" type="submit">
+          <button 
+          class="btn" 
+          :class="{'btn-success': active, 'btn-secondary': !active, 'disabled': !active }"
+          @click="fileUpload()" 
+          type="submit">
             upload
           </button>
         </div>
@@ -32,6 +36,7 @@
             v-if="!file.data_uploaded"
             @click="upload(file.id)"
             class="btn btn-danger"
+            :class="{disabled: clickedId.includes(file.id)}"
           >
             Upload
           </button>
@@ -56,6 +61,8 @@ export default {
   name: "Home",
   data() {
     return {
+      clickedId: [],
+      active: false,
       fileData: null,
       files: {},
       newFile: null,
@@ -64,6 +71,7 @@ export default {
     };
   },
   async created() {
+    console.log(sessionStorage.getItem("username"), sessionStorage.getItem("password"))
     if (this.username, this.password, this.$store.state.authenticated) {
       await this.getData();
     } else {
@@ -85,11 +93,12 @@ export default {
         });
     },
     upload(e) {
+      this.clickedId.push(e)
       axios
         .post(
           "http://localhost:8000/data/upload/",
           { file_id: e },
-          { auth: { username: "admin", password: "admin" } }
+          { auth: { username: this.username, password: this.password } }
         )
         .then((res) => {
           if (res.status === 201) {
@@ -102,8 +111,8 @@ export default {
       this.$router.push({ name: "DataView", params: { id: id } });
     },
     handleFileUpload(event) {
-      console.log("Cliked:")
       this.file = event.target.files[0];
+      this.active = true;
     },
     fileUpload() {
       if (this.file) {
@@ -120,9 +129,11 @@ export default {
             auth: { username: this.username, password: this.password },
           })
           .then((res) => {
+            this.getData();
             console.log(res);
           });
       }
+      this.active = false;
     },
   },
 };
@@ -132,5 +143,10 @@ export default {
 .box {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.active{
+  text: green;
+  disabled: true;
 }
 </style>
